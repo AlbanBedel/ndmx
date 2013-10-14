@@ -1,0 +1,20 @@
+
+         NanoDMX - A generic DMX device for dimmers and relays
+
+
+This project attempts to create an affordable platform for custom DMX devices.
+
+* Hardware
+
+The hardware platform will be based on the popular AVR micro-controller and
+should be easy to build at home. The schematics of the first reference hardware
+are still beeing worked on.
+
+* Software
+
+The firmware is written for GNU gcc using avr-libc and should be portable to
+most AVR providing an UART. To build:
+
+ - Edit board_config.h to match your hardware configuration
+ - Run: make MCU=mcu F_CPU=XXX with the proper MCU name and frequency
+ - Flash your device with ndmx.ihex

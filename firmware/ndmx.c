@@ -13,7 +13,6 @@
 
 #include "ndmx.h"
 #include "dmx.h"
-#include "board_config.h"
 
 struct input {
     uint8_t		value;
@@ -45,16 +44,20 @@ void dmx_receive_start(void)
     update = 1;
 }
 
+void __attribute__((weak))
+ndmx_board_pre_init(void)
+{}
+
+void __attribute__((weak))
+ndmx_board_post_init(void)
+{}
+
 int ndmx_init(void)
 {
-    // On the arduino micro the bootloader leave some USB interrupts enabled
-    // TODO: Move this to some board fixup code
-#ifdef UDIEN
-    UDIEN = 0;
-#endif
-
+    ndmx_board_pre_init();
     dmx_init(1, DMX_CHANNEL_COUNT);
     ndmx_init_outputs();
+    ndmx_board_post_init();
     update = 1;
     return 0;
 }

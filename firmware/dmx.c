@@ -9,7 +9,6 @@
 #include "dmx.h"
 #include "pin.h"
 #include "pwm.h"
-#include "board_config.h"
 
 #ifdef DMX_UART_ID
 #    if !CAT2(U2X, DMX_UART_ID)

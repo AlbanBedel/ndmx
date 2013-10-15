@@ -6,7 +6,6 @@
 #include "ndmx.h"
 #include "pwm.h"
 #include "pin.h"
-#include "board_config.h"
 
 struct output {
     uint8_t	value;

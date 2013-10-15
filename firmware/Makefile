@@ -1,6 +1,10 @@
 
-MCU=atmega32u4
-F_CPU=16000000
+BOARD=arduino_micro
+
+# Get the MCU from the board config
+BOARD_H := boards/$(BOARD).h
+BOARD_O := $(patsubst %.c,%.o,$(wildcard boards/$(BOARD).c))
+MCU := $(shell echo MCU | $(CPP) -E -P -imacros $(BOARD_H) -)
 
 CROSS_COMPILE=avr-
 
@@ -23,6 +27,7 @@ ndmx.elf_DEPS :=	\
 	ndmx.o		\
 	dmx.o		\
 	outputs.o	\
+	$(BOARD_O)	\
 
 ndmx.ihex_DEPS :=	\
 	ndmx.elf	\
@@ -37,12 +42,9 @@ clean:
 
 ALL_FLAGS = CPPFLAGS CFLAGS CXXFLAGS LDFLAGS LIBS FLASH_FLAGS EEPROM_FLAGS
 
-# Add the CPU config to the CFLAGS, but still let the user
-# override them if needed.
-MCU_CFLAGS=-mmcu=$(MCU) -DF_CPU=$(F_CPU)
-MCU_LDFLAGS=-mmcu=$(MCU)
-CFLAGS+=$(MCU_CFLAGS)
-LDFLAGS+=$(MCU_LDFLAGS)
+CPPFLAGS+=-include $(BOARD_H)
+CFLAGS+=-mmcu=$(MCU)
+LDFLAGS+=-mmcu=$(MCU)
 
 # Flag to use when creating images
 FLASH_FLAGS=-R .eeprom

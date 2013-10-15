@@ -1,3 +1,7 @@
+/* MCU */
+#define MCU			atmega32u4
+#define F_CPU			16000000
+
 /* Inputs */
 #define DMX_CHANNEL_COUNT	4
 #define DMX_RECV_PORT		D

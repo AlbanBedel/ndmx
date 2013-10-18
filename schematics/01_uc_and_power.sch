@@ -20,7 +20,7 @@ refdes=C1
 T 42200 49300 5 10 0 0 270 2 1
 symversion=0.1
 T 42300 48800 5 10 1 1 0 0 1
-value=10µF
+value=0.33µF
 }
 C 42900 48900 1 0 0 lm7805-1.sym
 {
@@ -106,7 +106,7 @@ refdes=C2
 T 43800 49300 5 10 0 0 270 2 1
 symversion=0.1
 T 44700 48800 5 10 1 1 0 0 1
-value=10µF
+value=0.1µF
 }
 C 50600 48200 1 90 0 resistor-2.sym
 {

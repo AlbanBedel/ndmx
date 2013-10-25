@@ -54,7 +54,7 @@ void ndmx_init(void)
     ndmx_board_post_init();
 }
 
-int main(void)
+int  __attribute__((OS_main)) main(void)
 {
     ndmx_init();
 

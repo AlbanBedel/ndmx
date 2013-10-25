@@ -57,7 +57,8 @@ endef
 define goal
 $(1): $($(1)_DEPS) Makefile
 $(foreach flag,$(ALL_FLAGS),$(eval $(call goal_flag,$(1),$(flag))))
-$(foreach dep,$($(1)_DEPS),$(eval $(call goal,$(dep))))
+$(foreach dep,$($(1)_DEPS),$(eval $(if $($(dep)_DEFINED),,$(call goal,$(dep)))))
+$(1)_DEFINED := true
 endef
 
 $(foreach dep,$(all_DEPS),$(eval $(call goal,$(dep))))

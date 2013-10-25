@@ -24,11 +24,11 @@ ndmx.elf_DEPS :=	\
 	outputs.o	\
 	$(BOARD_O)	\
 
-ndmx.ihex_DEPS :=	\
-	ndmx.elf	\
+ndmx.flash.ihex_DEPS :=		\
+	ndmx.elf		\
 
-all_DEPS :=		\
-	ndmx.ihex	\
+all_DEPS :=			\
+	ndmx.flash.ihex		\
 
 all: $(all_DEPS)
 
@@ -65,11 +65,11 @@ $(foreach dep,$(all_DEPS),$(eval $(call goal,$(dep))))
 	rm -f $@
 	$(CROSS_COMPILE)$(AR) rs $@ $(filter %.o,$($*.a_DEPS))
 
-%.ihex: %.elf
-	$(CROSS_COMPILE)$(OBJCOPY) -O ihex $(FLASH_FLAGS) $< $@
-
-%_eprom.ihex: %.elf
+%.eeprom.ihex: %.elf
 	$(CROSS_COMPILE)$(OBJCOPY) -O ihex $(EEPROM_FLAGS) $< $@
+
+%.flash.ihex: %.elf
+	$(CROSS_COMPILE)$(OBJCOPY) -O ihex $(FLASH_FLAGS) $< $@
 
 %.elf:
 	$(CROSS_COMPILE)$(CC) $(LDFLAGS) -o $@ $(filter %.o,$($*.elf_DEPS)) $(LIBS)

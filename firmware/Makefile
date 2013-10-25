@@ -59,7 +59,7 @@ endef
 $(foreach dep,$(all_DEPS),$(eval $(call goal,$(dep))))
 
 %.o: %.c
-	$(CROSS_COMPILE)$(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
+	$(CROSS_COMPILE)$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
 %.a:
 	rm -f $@
@@ -72,7 +72,7 @@ $(foreach dep,$(all_DEPS),$(eval $(call goal,$(dep))))
 	$(CROSS_COMPILE)$(OBJCOPY) -O ihex $(EEPROM_FLAGS) $< $@
 
 %.elf:
-	$(CROSS_COMPILE)$(CC) -o $@ $(filter %.o,$($*.elf_DEPS)) $(LDFLAGS) $(LIBS)
+	$(CROSS_COMPILE)$(CC) $(LDFLAGS) -o $@ $(filter %.o,$($*.elf_DEPS)) $(LIBS)
 
 .PHONY: all clean
 

@@ -18,17 +18,25 @@ CFLAGS =-Os -flto 			\
 LDFLAGS=-Os -flto -fwhole-program	\
 	-Wl,-Map=$(@:%.elf=%.map) 	\
 
+ndmx.elf_LDFLAGS=ndmx.x
+
 ndmx.elf_DEPS :=	\
 	ndmx.o		\
 	dmx.o		\
 	outputs.o	\
+	config.o	\
+	nano_vm.o	\
 	$(BOARD_O)	\
 
 ndmx.flash.ihex_DEPS :=		\
 	ndmx.elf		\
 
+ndmx.eeprom.ihex_DEPS :=	\
+	ndmx.elf		\
+
 all_DEPS :=			\
 	ndmx.flash.ihex		\
+	ndmx.eeprom.ihex	\
 
 all: $(all_DEPS)
 

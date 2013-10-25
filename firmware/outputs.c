@@ -21,6 +21,11 @@ static struct output outputs[OUTPUT_COUNT];
 #define OUTPUT_TIMER		CAT3(OUTPUT_,OUTPUT_ID,_TIMER)
 #define OUTPUT_CHANNEL		CAT3(OUTPUT_,OUTPUT_ID,_CHANNEL)
 
+uint8_t ndmx_get_output(uint8_t id)
+{
+    return id < ARRAY_SIZE(outputs) ? outputs[id].value : 0;
+}
+
 static int8_t ndmx_set_output(uint8_t id, uint8_t val)
 {
     uint16_t old_value;
@@ -69,7 +74,10 @@ static int8_t ndmx_set_output(uint8_t id, uint8_t val)
 
 static int8_t ndmx_update_output(uint8_t id)
 {
-    ndmx_set_output(id, ndmx_get_input(id));
+    if (id >= OUTPUT_COUNT)
+        return -EINVAL;
+
+    ndmx_set_output(id, ndmx_vm_run(id));
     return 0;
 }
 

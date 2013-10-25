@@ -46,13 +46,12 @@ void __attribute__((weak))
 ndmx_board_post_init(void)
 {}
 
-int ndmx_init(void)
+void ndmx_init(void)
 {
     ndmx_board_pre_init();
     dmx_init(1, DMX_CHANNEL_COUNT);
     ndmx_init_outputs();
     ndmx_board_post_init();
-    return 0;
 }
 
 int main(void)

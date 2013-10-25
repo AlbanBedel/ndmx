@@ -19,7 +19,6 @@ struct input {
 };
 
 static struct input inputs[INPUT_COUNT];
-static uint8_t update;
 
 void ndmx_set_input(uint8_t i, uint8_t val)
 {
@@ -39,11 +38,6 @@ void dmx_received_channel(uint16_t channel, uint8_t data)
     }
 }
 
-void dmx_receive_start(void)
-{
-    update = 1;
-}
-
 void __attribute__((weak))
 ndmx_board_pre_init(void)
 {}
@@ -58,7 +52,6 @@ int ndmx_init(void)
     dmx_init(1, DMX_CHANNEL_COUNT);
     ndmx_init_outputs();
     ndmx_board_post_init();
-    update = 1;
     return 0;
 }
 
@@ -68,11 +61,7 @@ int main(void)
 
     sei();
     while (1) {
-        if (update) {
-            update = 0;
-            ndmx_update_outputs();
-        }
-        sleep_mode();
+        ndmx_update_outputs();
     }
 
     return 0;

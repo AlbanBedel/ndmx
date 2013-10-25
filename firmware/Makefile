@@ -11,16 +11,11 @@ CROSS_COMPILE=avr-
 CC=gcc
 OBJCOPY=objcopy
 
-CFLAGS =-Os -flto -frename-registers	\
-	-fira-loop-pressure		\
-	-fconserve-stack		\
-	-fweb				\
-	-std=c99			\
+CFLAGS =-Os -flto 			\
+	-std=gnu99			\
 	-g3 -Wall			\
 
 LDFLAGS=-Os -flto -fwhole-program	\
-	-Wl,--gc-sections 		\
-	-Wl,--print-gc-sections		\
 	-Wl,-Map=$(@:%.elf=%.map) 	\
 
 ndmx.elf_DEPS :=	\
